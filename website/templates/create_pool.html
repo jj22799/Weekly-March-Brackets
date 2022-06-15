@@ -1,0 +1,29 @@
+{% extends "base.html" %} {% block title %}Create Pool{% endblock %} {% block content
+%}
+<h1 align="center">Create Pool</h1>
+<ul class="nav nav-tabs" id="menu">
+  <li class="nav-item dropdown">
+    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Pools</a>
+    <ul class="dropdown-menu">
+      <li><a class="dropdown-item" href="/pools">View Pools</a></li>
+      <li><a class="dropdown-item" href="/join-pool">Join Pool</a></li>
+      <li><a class="dropdown-item" href="/create-pool">Create Pool</a></li>
+    </ul>
+  </li>
+</ul>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="poolName">Pool Name</label>
+    <input
+      type="text"
+      class="form-control"
+      id="poolName"
+      name="poolName"
+      placeholder="Enter pool name"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+{% endblock %}

@@ -1,6 +1,7 @@
-{% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
+{% extends "base.html" %} {% block title %}Pools{% endblock %} {% block content
 %}
-<h1 align="center">OsterHoops</h1>
+<h1 align="center">Pools</h1>
+
 <ul class="nav nav-tabs" id="menu">
   <li class="nav-item dropdown">
     <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Pools</a>
@@ -13,7 +14,7 @@
 </ul>
 
 <ul class="list-group list-group-flush" id="pools">
-  {% for each in Pool %}
+  {% for each in pool %}
   <li class="list-group-item">
     {{ each.pool_name, each.password }}
     <!--
@@ -24,14 +25,3 @@
   </li>
   {% endfor %}
 </ul>
-
-<!--
-<form method="POST">
-  <textarea name="note" id="note" class="form-control"></textarea>
-  <br />
-  <div align="center">
-    <button type="submit" class="btn btn-primary">Add Note</button>
-  </div>
-</form>
--->
-{% endblock %}
