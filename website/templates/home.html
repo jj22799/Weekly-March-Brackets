@@ -1,16 +1,6 @@
 {% extends "base.html" %} {% block title %}Home{% endblock %} {% block content
 %}
 <h1 align="center">OsterHoops</h1>
-<ul class="nav nav-tabs" id="menu">
-  <li class="nav-item dropdown">
-    <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">Pools</a>
-    <ul class="dropdown-menu">
-      <li><a class="dropdown-item" href="/pools">View Pools</a></li>
-      <li><a class="dropdown-item" href="/join-pool">Join Pool</a></li>
-      <li><a class="dropdown-item" href="/create-pool">Create Pool</a></li>
-    </ul>
-  </li>
-</ul>
 
 <ul class="list-group list-group-flush" id="pools">
   {% for each in Pool %}
