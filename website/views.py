@@ -22,8 +22,14 @@ def home():
             db.session.add(new_note)
             db.session.commit()
             flash('Note added!', category='success')
+    
+    html_string = '{% extends "base.html" %} {% block title %}' \
+        'Home{% endblock %} {% block content%}' \
+        '<h1 align="center">OsterHoops</h1>'
+    html_string += str(current_user.is_admin)
+    html_string += '{% endblock %}'
 
-    return render_template("home.html", user=current_user)
+    return render_template_string(html_string, user=current_user)
 
 @views.route('/create-pool', methods=['GET', 'POST'])
 @login_required
@@ -83,7 +89,7 @@ def pools():
             '<h1 align="center">Pools</h1></br>' \
             '<ul class="list-group list-group-flush" id="pools">'
         
-        # Get a list of pools from the database.
+        # Get a list of pools from the database that the current user is linked to.
         pool_ids = db.session.query(Link.pool_id).filter(Link.user_id == current_user.id)
         for each in pool_ids:
             pool_name = db.session.query(Pool.pool_name).filter(Pool.id == each[0]).first()[0]          
