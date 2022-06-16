@@ -55,6 +55,25 @@ def create_pool():
 
     return render_template("create_pool.html", user=current_user)
 
+@views.route('/join-pool', methods=['GET', 'POST'])
+@login_required
+def join_pool():
+    if request.method == 'POST':
+        pool_password = request.form.get('poolPassword').strip(' ')
+
+        if len(pool_password) != 12:
+            flash('Pool password should be 12 characters.', category='error')
+        else:
+            # TODO: Update this chunk to add user to pool
+            pool_id = db.session.query(Pool.id).filter(Pool.password == pool_password).first()[0]
+            new_link = Link(user_id=current_user.id, pool_id=pool_id)
+            db.session.add(new_link)
+            db.session.commit()
+            
+            return redirect(url_for('views.home'))
+
+    return render_template("join_pool.html", user=current_user)
+
 @views.route('/pools', methods=['GET'])
 @login_required
 def pools():
@@ -65,9 +84,10 @@ def pools():
             '<ul class="list-group list-group-flush" id="pools">'
         
         # Get a list of pools from the database.
-        pools_list = db.session.query(Pool)
-        for each in pools_list:
-            html_string += '<li class="list-group-item">' + each.pool_name + '</li>'
+        pool_ids = db.session.query(Link.pool_id).filter(Link.user_id == current_user.id)
+        for each in pool_ids:
+            pool_name = db.session.query(Pool.pool_name).filter(Pool.id == each[0]).first()[0]          
+            html_string += '<li class="list-group-item">' + pool_name + '</li>'
         html_string += '</ul>' \
                        '{% endblock %}'
 
