@@ -16,13 +16,12 @@ class Picks(db.Model):
     date = db.Column(db.DateTime(timezone=True), default=func.now())
     week = db.Column(db.Integer) # 1, 2, or 3
     winners = db.Column(MutableList.as_mutable(PickleType), default=[]) # List of all winners picked
-    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    link_id = db.Column(db.Integer, db.ForeignKey('link.id'))
     
 class Matchup(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    week = db.Column(db.Integer) # 1, 2, or 3
-    bracket = db.Column(db.String(5)) # North, South, West, or East
+    game = db.Column(db.Integer) # 1 - 63 as shown on image in enter_teams.html
     team1 = db.Column(db.String(100)) # Name of Team 1
     team2 = db.Column(db.String(100)) # Name of Team 2
 
@@ -33,7 +32,6 @@ class User(db.Model, UserMixin):
     password = db.Column(db.String(150))
     first_name = db.Column(db.String(150))
     notes = db.relationship('Note')
-    picks = db.relationship('Picks')
 
 class Pool(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -44,4 +42,5 @@ class Link(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     pool_id = db.Column(db.Integer, db.ForeignKey('pool.id'))
+    picks = db.relationship('Picks')
     

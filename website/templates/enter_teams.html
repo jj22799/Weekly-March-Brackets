@@ -1,0 +1,592 @@
+{% extends "base.html" %} {% block title %}Enter Teams{% endblock %} {% block content
+%}
+<h1 align="center">Enter Teams</h1>
+
+<img 
+  src="{{url_for('static', filename='bracket.png')}}"
+  align="center"
+  alt="Blank March Madness Bracket"
+  style="width:90%;height:90%;"
+/>
+
+<form method="POST">
+  <div class="form-group">
+    <label for="game1">Game 1</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName1"
+      name="teamName1"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName2"
+      name="teamName2"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game2">Game 2</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName3"
+      name="teamName3"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName4"
+      name="teamName4"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game3">Game 3</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName5"
+      name="teamName5"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName6"
+      name="teamName6"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game4">Game 4</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName7"
+      name="teamName7"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName8"
+      name="teamName8"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game5">Game 5</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName9"
+      name="teamName9"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName10"
+      name="teamName10"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game6">Game 6</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName11"
+      name="teamName11"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName12"
+      name="teamName12"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game7">Game 7</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName13"
+      name="teamName13"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName14"
+      name="teamName14"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game8">Game 8</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName15"
+      name="teamName15"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName16"
+      name="teamName16"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game9">Game 9</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName17"
+      name="teamName17"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName18"
+      name="teamName18"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game10">Game 10</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName19"
+      name="teamName19"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName20"
+      name="teamName20"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game11">Game 11</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName21"
+      name="teamName21"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName22"
+      name="teamName22"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game12">Game 12</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName23"
+      name="teamName23"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName24"
+      name="teamName24"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game13">Game 13</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName25"
+      name="teamName25"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName26"
+      name="teamName26"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game14">Game 14</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName27"
+      name="teamName27"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName28"
+      name="teamName28"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game15">Game 15</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName29"
+      name="teamName29"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName30"
+      name="teamName30"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game16">Game 16</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName31"
+      name="teamName31"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName32"
+      name="teamName32"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game17">Game 17</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName33"
+      name="teamName33"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName34"
+      name="teamName34"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game18">Game 18</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName35"
+      name="teamName35"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName36"
+      name="teamName36"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game19">Game 19</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName37"
+      name="teamName37"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName38"
+      name="teamName38"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game20">Game 20</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName39"
+      name="teamName39"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName40"
+      name="teamName40"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game21">Game 21</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName41"
+      name="teamName41"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName42"
+      name="teamName42"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game22">Game 22</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName43"
+      name="teamName43"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName44"
+      name="teamName44"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game23">Game 23</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName45"
+      name="teamName45"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName46"
+      name="teamName46"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game24">Game 24</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName47"
+      name="teamName47"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName48"
+      name="teamName48"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game25">Game 25</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName49"
+      name="teamName49"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName50"
+      name="teamName50"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game26">Game 26</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName51"
+      name="teamName51"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName52"
+      name="teamName52"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game27">Game 27</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName53"
+      name="teamName53"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName54"
+      name="teamName54"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game28">Game 28</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName55"
+      name="teamName55"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName56"
+      name="teamName56"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game29">Game 29</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName57"
+      name="teamName57"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName58"
+      name="teamName58"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game30">Game 30</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName59"
+      name="teamName59"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName60"
+      name="teamName60"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game31">Game 31</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName61"
+      name="teamName61"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName62"
+      name="teamName62"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <div class="form-group">
+    <label for="game32">Game 32</label>
+    <input
+      type="text"
+      class="form-control"
+      id="teamName63"
+      name="teamName63"
+      placeholder="Enter team name"
+    />
+    <input
+      type="text"
+      class="form-control"
+      id="teamName64"
+      name="teamName64"
+      placeholder="Enter team name"
+    />
+  </div>
+  <br />
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+<br />
+{% endblock %}
