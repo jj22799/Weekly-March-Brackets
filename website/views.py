@@ -100,6 +100,35 @@ def pools():
     return render_template_string(html_string, user=current_user)
 
 
+@views.route('/make-admin', methods=['GET', 'POST'])
+@login_required
+def make_admin():
+    if request.method == 'POST':
+        user_email = request.form.get('userEmail')
+        
+        if request.form.get('giveAdminAccess') == 'True':
+            give_admin_access = True
+        else:
+            give_admin_access = False
+
+        user = db.session.query(User).filter(User.email == user_email).first()
+        user.is_admin = give_admin_access
+        db.session.add(user)
+        db.session.commit()
+            
+        return redirect(url_for('views.home'))
+    
+    if current_user.is_admin:
+        return render_template("make_admin.html", user=current_user)
+    else:
+        html_string = '{% extends "base.html" %} {% block title %}Pools' \
+            '{% endblock %} {% block content%} </br>' \
+            '<h1 align="center">Make Admin</h1></br>' \
+            'Access denied.  Admin access required.' \
+            '{% endblock %}'
+        return render_template_string(html_string, user=current_user)
+
+
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
     note = json.loads(request.data)
