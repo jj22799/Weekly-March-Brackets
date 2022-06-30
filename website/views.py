@@ -5,6 +5,7 @@ from . import db
 import json
 import random
 import string
+from datetime import date
 
 views = Blueprint('views', __name__)
 
@@ -246,7 +247,7 @@ def enter_teams():
         new_matchup31 = Matchup(game=31, team1=team_name61, team2=team_name62)
         new_matchup32 = Matchup(game=32, team1=team_name63, team2=team_name64)
         
-        # Create list of all matchups.
+        # Create list of all matchups entered.
         new_matchups = [new_matchup1, new_matchup2, new_matchup3, new_matchup4,
                         new_matchup5, new_matchup6, new_matchup7, new_matchup8,
                         new_matchup9, new_matchup10, new_matchup11, new_matchup12,
@@ -256,16 +257,32 @@ def enter_teams():
                         new_matchup25, new_matchup26, new_matchup27, new_matchup28,
                         new_matchup29, new_matchup30, new_matchup31, new_matchup32]
         
-        #TODO: Check matchups in db.
-        #      If matchup is found with same Matchup.date.year and Matchup.game
-        #           then update that matchup instead of creating a new one.
-        #      All new_matchup with a team_name == '' should be ignored completely.
+        # List of updated matchups or new matchups to commit to database.
+        needed_matchups = []
         
-        # Add all of the matchups to the datebase.
-        db.session.add_all(new_matchups)
+        for new_matchup in new_matchups:
+            # Look for a machup in the database with the same year and game number.
+            matchups = db.session.query(Matchup).filter(Matchup.game == new_matchup.game).all()
+            matchup = None
+            if len(matchups) > 0:
+                if matchups[0].date.year == date.today().year:
+                    matchup = matchups[0]
+            
+            # If there is a matchup in the database, it needs to be updated.
+            if matchup != None:
+                if new_matchup.team1 != '':
+                    matchup.team1 = new_matchup.team1
+                if new_matchup.team2 != '':
+                    matchup.team2 = new_matchup.team2
+                needed_matchups.append(matchup)
+            # If there is not a matching matchup in the database, add a new one.
+            else:
+                needed_matchups.append(new_matchup)
+
+        db.session.add_all(needed_matchups)
         db.session.commit()
             
-        return redirect('/admin')
+        return redirect('/admin/test')
     
     if current_user.is_admin:
         return render_template("enter_teams.html", user=current_user)
@@ -288,12 +305,12 @@ def test():
         
         matchups = db.session.query(Matchup)
         for each in matchups:
-            html_string += str(each.game) + ' ' \
-                           + str(each.date.year) + ' '\
-                           + str(each.team1) + ' ' \
+            html_string += str(each.game) + ' | ' \
+                           + str(each.date.year) + ' | '\
+                           + str(each.team1) + ' | ' \
                            + str(each.team2) + '</br>'
         
-        html_string += '{% endblock %}'
+        html_string += '</br></br>{% endblock %}'
         
         return render_template_string(html_string, user=current_user)
 

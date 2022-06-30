@@ -24,6 +24,7 @@ class Matchup(db.Model):
     game = db.Column(db.Integer) # 1 - 63 as shown on image in enter_teams.html
     team1 = db.Column(db.String(100)) # Name of Team 1
     team2 = db.Column(db.String(100)) # Name of Team 2
+    winner = db.Column(db.String(100)) # Name of winning team
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
