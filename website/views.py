@@ -32,6 +32,7 @@ def home():
 
     return render_template_string(html_string, user=current_user)
 
+
 @views.route('/create-pool', methods=['GET', 'POST'])
 @login_required
 def create_pool():
@@ -62,6 +63,7 @@ def create_pool():
 
     return render_template("create_pool.html", user=current_user)
 
+
 @views.route('/join-pool', methods=['GET', 'POST'])
 @login_required
 def join_pool():
@@ -80,6 +82,7 @@ def join_pool():
             return redirect(url_for('views.home'))
 
     return render_template("join_pool.html", user=current_user)
+
 
 @views.route('/pools', methods=['GET'])
 @login_required
@@ -130,6 +133,7 @@ def make_admin():
             '{% endblock %}'
         return render_template_string(html_string, user=current_user)
 
+
 @views.route('/admin', methods=['GET'])
 @login_required
 def admin():
@@ -142,6 +146,7 @@ def admin():
             'Access denied.  Admin access required.' \
             '{% endblock %}'
         return render_template_string(html_string, user=current_user)
+
 
 @views.route('/admin/enter_teams', methods=['GET', 'POST'])
 @login_required
@@ -275,6 +280,7 @@ def enter_teams():
                 if new_matchup.team2 != '':
                     matchup.team2 = new_matchup.team2
                 needed_matchups.append(matchup)
+                #TODO: Look in all Picks for the replaced team name and updated them too.
             # If there is not a matching matchup in the database, add a new one.
             else:
                 needed_matchups.append(new_matchup)
@@ -295,6 +301,94 @@ def enter_teams():
         return render_template_string(html_string, user=current_user)
 
 
+@views.route('/admin/round1', methods=['GET', 'POST'])
+@login_required
+def round1():
+    
+    # List of all matchups in Round of 64 in current year.
+    # This will need to be used in a GET and POST request.
+    matchups = []
+    
+    for i in range(32):
+        # Get game 1-32 for the current year and add them to matchups.
+        matchups_all = db.session.query(Matchup).filter(Matchup.game == i+1).all()
+        for each in matchups_all:
+            if each.date.year == date.today().year:
+                matchups.append(each)
+    
+    if request.method == 'POST':
+        allGamesFinal = True
+        for i in range(32):
+            winner = request.form.get('game' + str(i+1))
+            if winner == 'team1':
+                matchups[i].winner = matchups[i].team1
+            elif winner == 'team2':
+                matchups[i].winner = matchups[i].team2
+            else:
+                matchups[i].winner = None
+                allGamesFinal = False
+        
+        # Check if a winner is selected for all matchups and create
+        # all matchups for next round if they are all final.
+        if allGamesFinal:
+            print("Creating matchups for Round of 32...")
+            for i in range(16):
+                new_matchup = Matchup(game=33+i, team1=matchups[2*i].winner, team2=matchups[2*i+1].winner)
+                matchups.append(new_matchup)
+                print('Added game ' + str(new_matchup.game) + ' - ' + new_matchup.team1 + ' - ' + new_matchup.team2)
+        
+        db.session.add_all(matchups)
+        db.session.commit()
+        
+        return redirect('/admin/round1')
+        
+    if current_user.is_admin:
+        html_string = '{% extends "base.html" %} {% block title %}Select Winners' \
+            '{% endblock %} {% block content%} </br>' \
+            '<h1 align="center">Select Round of 64 Winners</h1></br>' \
+            '<form method="POST">'
+
+        for i in range(32):
+            html_string += '<h4>Game ' + str(i+1) + '</h4>'
+            
+            # Create radio buttons for each team in each matchup with winner checked.
+            if matchups[i].winner == matchups[i].team1:
+                html_string += '<input type="radio" id="team' + str(2*i + 1) + '" name="game' + str(i+1) + '" value="team1" checked>' \
+                               '<label for="team1">&nbsp ' + str(matchups[i].team1) + '</label><br>' \
+                               '<input type="radio" id="team' + str(2*i + 2) + '" name="game' + str(i+1) + '" value="team2">' \
+                               '<label for="team2">&nbsp ' + str(matchups[i].team2) + '</label><br>' \
+                               '<input type="radio" id="none' + str(i+1) + '" name="game' + str(i+1) + '" value="none">' \
+                               '<label for="none">&nbsp None</label><br><br>'
+            elif matchups[i].winner == matchups[i].team2:
+                html_string += '<input type="radio" id="team' + str(2*i + 1) + '" name="game' + str(i+1) + '" value="team1">' \
+                               '<label for="team1">&nbsp ' + str(matchups[i].team1) + '</label><br>' \
+                               '<input type="radio" id="team' + str(2*i + 2) + '" name="game' + str(i+1) + '" value="team2" checked>' \
+                               '<label for="team2">&nbsp ' + str(matchups[i].team2) + '</label><br>' \
+                               '<input type="radio" id="none' + str(i+1) + '" name="game' + str(i+1) + '" value="none">' \
+                               '<label for="none">&nbsp None</label><br><br>'
+            else:
+                html_string += '<input type="radio" id="team' + str(2*i + 1) + '" name="game' + str(i+1) + '" value="team1">' \
+                               '<label for="team1">&nbsp ' + str(matchups[i].team1) + '</label><br>' \
+                               '<input type="radio" id="team' + str(2*i + 2) + '" name="game' + str(i+1) + '" value="team2">' \
+                               '<label for="team2">&nbsp ' + str(matchups[i].team2) + '</label><br>' \
+                               '<input type="radio" id="none' + str(i+1) + '" name="game' + str(i+1) + '" value="none" checked>' \
+                               '<label for="none">&nbsp None</label><br><br>'
+
+        html_string += '<button type="submit" class="btn btn-primary">Submit</button>' \
+                       '</form><br />' \
+                       '{% endblock %}'
+        return render_template_string(html_string, user=current_user)
+    
+    # User is not admin and shouldn't have access to this page.
+    else:
+        html_string = '{% extends "base.html" %} {% block title %}Select Winners' \
+            '{% endblock %} {% block content%} </br>' \
+            '<h1 align="center">Select Round of 64 Winners</h1></br>' \
+            'Access denied.  Admin access required.' \
+            '{% endblock %}'
+        return render_template_string(html_string, user=current_user)
+
+
 @views.route('/admin/test', methods=['GET'])
 @login_required
 def test():
@@ -308,11 +402,13 @@ def test():
             html_string += str(each.game) + ' | ' \
                            + str(each.date.year) + ' | '\
                            + str(each.team1) + ' | ' \
-                           + str(each.team2) + '</br>'
+                           + str(each.team2) + ' | ' \
+                           + str(each.winner) + '</br>'
         
         html_string += '</br></br>{% endblock %}'
         
         return render_template_string(html_string, user=current_user)
+
 
 @views.route('/delete-note', methods=['POST'])
 def delete_note():
