@@ -14,7 +14,6 @@ class Note(db.Model):
 class Picks(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime(timezone=True), default=func.now())
-    week = db.Column(db.Integer) # 1, 2, or 3
     winners = db.Column(MutableList.as_mutable(PickleType), default=[]) # List of all winners picked
     link_id = db.Column(db.Integer, db.ForeignKey('link.id'))
     
@@ -45,3 +44,13 @@ class Link(db.Model):
     pool_id = db.Column(db.Integer, db.ForeignKey('pool.id'))
     picks = db.relationship('Picks')
     
+class Lock(db.Model):
+    # Used to track when a round of picks is locked so users
+    # can't edit their picks.  This should have one Lock for each week
+    # (3 per year) which will be manually toggled to is_locked=True
+    # at tip off of the first game of each week.
+    id = db.Column(db.Integer, primary_key=True)
+    date = db.Column(db.DateTime(timezone=True), default=func.now())
+    week = db.Column(db.Integer) # 1: Round of 64 and 32; 2: Sweet 16 and Elite 8; 3: Final 4 and Championship
+    is_locked = db.Column(db.Boolean, default=False)
+
