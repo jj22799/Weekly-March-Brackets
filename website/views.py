@@ -188,12 +188,18 @@ def view_pool():
         week2 = getMatchupsByGameNumber(49)
         if len(week3) > 0:
             # Picks need to be made for week 3.
-            html_string += '<p><a href=> Make/update your picks for week 3 ' \
+            html_string += '<p><a href="{{ url_for(\'views.make_picks\', ' \
+                           'pool_id=' + str(pool_id) \
+                           + ', round_number=5) }}"> ' \
+                           'Make/update your picks for week 3 ' \
                            '(Final 4 and Championship) </a></p>'
         
         elif len(week2) > 0:
             # Picks need to be made for week 2.
-            html_string += '<p><a href=> Make/update your picks for week 2 ' \
+            html_string += '<p><a href="{{ url_for(\'views.make_picks\', ' \
+                           'pool_id=' + str(pool_id) \
+                           + ', round_number=3) }}"> ' \
+                           'Make/update your picks for week 2 ' \
                            '(Sweet 16 and Elite 8) </a></p>'
         
         else:
